@@ -14,4 +14,4 @@ RUN python3 -m pip install --upgrade pip
 COPY ./airflow.cfg ./airflow.cfg
 
 # copying key
-COPY ./keys/gcp_credentials.json ./creds.json
+COPY ./keys/creds.json ./creds.json

@@ -1,8 +1,8 @@
 from airflow import DAG
 from datetime import datetime, timedelta
 from airflow.operators.python_operator import PythonOperator
-from python_scripts.db_extract_operator \
-    import DumpDBtoGCS as run_dump_db_to_gcs
+from python_scripts.transform \
+    import transformDataset as run_transform
 
 """
 BEGIN CONFIGURATION
@@ -25,9 +25,9 @@ END CONFIGURATION
 """
 
 dag = DAG(
-    dag_id='answer_1',
+    dag_id='answer_2',
     default_args=default_args,
-    schedule_interval='0 * * * *',
+    schedule_interval='0 1 * * *',
     catchup=False
 )
 
@@ -47,11 +47,10 @@ run_date_ds = (
 
 
 task_1 = PythonOperator(
-        task_id='db_to_gcs',
-        python_callable=run_dump_db_to_gcs,
+        task_id='transform_dataset',
+        python_callable=run_transform,
         op_kwargs={
-            "run_date": run_date_ds,
-            "filename": 'documents'
+            "source_path": '/opt/airflow/dags/dataset/user_activity_pretest.csv'
         },
         dag=dag
     )

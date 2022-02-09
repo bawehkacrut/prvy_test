@@ -96,4 +96,4 @@ def DumpDBtoGCS(run_date, filename):
         "Process: Success extract data from DB"
     )
 
-    dump_csv_to_gcs(df, run_date, filename)
+    # dump_csv_to_gcs(df, run_date, filename)
